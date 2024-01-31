@@ -1,17 +1,53 @@
-<div>
-  <div class="p-4">
-    <mat-card class="example-card">
+<div
+  class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4"
+>
+  <div *ngFor="let station of stations">
+    <mat-card
+      class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
+    >
       <mat-card-header>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-title-group>
+          <mat-card-title>{{ station.name }}</mat-card-title>
+          <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
+          <img mat-card-md-image [src]="station.favicon" />
+        </mat-card-title-group>
       </mat-card-header>
-      <mat-card-content>
-        <p>This card indeterminates progress bar.</p>
-        <p>how</p>
+      <mat-card-content class="flex">
+        <div class="inline-flex items-center py-4 gap-2">
+          <span class="bg-slate-300 rounded-2xl px-3 py-2">
+            {{ station.language | titlecase }}</span
+          >
+          <span class="bg-slate-300 rounded-2xl px-3 py-2">Classical</span>
+        </div>
+        <div>
+          <span class="bg-[#283db4] text-white rounded-2xl px-3 py-2">
+            Votes: {{ station.votes | number }}
+          </span>
+        </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+
+      <mat-card-actions class="flex justify-end">
+        <div class="flex px-4 gap-4">
+          <button
+            mat-button
+            (click)="toggleLike()"
+            class="flex items-center justify-center gap-1"
+          >
+            <mat-icon *ngIf="!isLiked">favorite_border</mat-icon>
+            <mat-icon *ngIf="isLiked" color="warn">favorite</mat-icon>
+            LIKE
+          </button>
+          <!-- Play/Pause button -->
+          <button
+            mat-button
+            (click)="togglePlayPause()"
+            class="flex items-center justify-center gap-1"
+          >
+            <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+            <mat-icon *ngIf="isPlaying">pause</mat-icon>
+            PLAY
+          </button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>

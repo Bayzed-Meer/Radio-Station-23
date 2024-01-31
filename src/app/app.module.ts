@@ -18,6 +18,8 @@ import { DisplayComponent } from './display/display.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RadioStationsComponent } from './radio-stations/radio-stations.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     HttpClientModule,
     MatIconModule,
     MatCardModule,
+    MatChipsModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
