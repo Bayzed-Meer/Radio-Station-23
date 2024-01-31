@@ -11,6 +11,8 @@ export class RadioStationsComponent implements OnInit {
   likedStatus: Map<string, boolean> = new Map();
   playingStatus: Map<string, boolean> = new Map();
   currentPlayingStation: string | null = null;
+  currentPlayingStationInfo: any = null;
+  playPauseIcon: string = 'play_arrow'; // Added variable for play/pause icon
   stations: any[] = [];
   filteredStations: any[] = [];
 
@@ -32,6 +34,9 @@ export class RadioStationsComponent implements OnInit {
         this.filterService.getSelectedFilters().subscribe((filters) => {
           this.applyFilters(filters);
         });
+
+        // Set initial play/pause icon state
+        this.updatePlayPauseIcon();
       },
       (error) => {
         console.error('Error fetching stations:', error);
@@ -45,8 +50,6 @@ export class RadioStationsComponent implements OnInit {
       return;
     }
     this.filteredStations = this.stations.filter((station) => {
-      // console.log(station.name);
-      // console.log(filters.name);
       const countryFilter =
         !filters.country ||
         station.country.toLowerCase() === filters.country.toLowerCase();
@@ -85,17 +88,32 @@ export class RadioStationsComponent implements OnInit {
     }
 
     this.playingStatus.set(stationUuid, !currentStatus);
-
-    // Set the currentPlayingStation to the stationUuid if it's playing, otherwise set it to null
     this.currentPlayingStation = this.playingStatus.get(stationUuid)
       ? stationUuid
       : null;
+
+    // Update the play/pause icon in the footer
+    this.updatePlayPauseIcon();
 
     // Add logic for play/pause functionality (e.g., audio playback control)
     if (this.playingStatus.get(stationUuid)) {
       // Start playing the station
     } else {
       // Pause the station
+    }
+  }
+
+  updatePlayPauseIcon() {
+    if (this.currentPlayingStation) {
+      this.playPauseIcon = this.playingStatus.get(this.currentPlayingStation)
+        ? 'pause'
+        : 'play_arrow';
+      this.currentPlayingStationInfo = this.stations.find(
+        (station) => station.stationuuid === this.currentPlayingStation
+      );
+    } else {
+      this.playPauseIcon = 'play_arrow';
+      this.currentPlayingStationInfo = null;
     }
   }
 }
