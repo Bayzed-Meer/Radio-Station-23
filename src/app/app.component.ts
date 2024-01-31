@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Radio-Station-23';
+  isSidenavOpen: boolean = false;
+
+  // Function to toggle sidenav state
+  toggleSidenav() {
+    this.isSidenavOpen = !this.isSidenavOpen;
+  }
 }

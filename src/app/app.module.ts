@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
@@ -14,6 +16,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     InputSwitchModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
