@@ -1,0 +1,12 @@
+<div class="w-[88vw] flex">
+  <div *ngIf="selectedComponent === 'Browse'" class="flex-1">
+    <app-browse></app-browse>
+    <app-radio-stations></app-radio-stations>
+  </div>
+  <div *ngIf="selectedComponent === 'Radio Map'" class="flex-1">
+    <app-browse></app-browse>
+  </div>
+  <div *ngIf="selectedComponent === 'browse'" class="flex-1">
+    <app-browse></app-browse>
+  </div>
+</div>

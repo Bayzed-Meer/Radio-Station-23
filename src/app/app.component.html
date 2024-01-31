@@ -1,3 +1,4 @@
-<app-navbar (sidenavToggle)="toggleSidenav()"></app-navbar>
-<app-sidenav [isSidenavOpen]="isSidenavOpen"></app-sidenav>
+<app-navbar></app-navbar>
+<div class="flex"><app-sidenav></app-sidenav> <app-display></app-display></div>
+
 <router-outlet></router-outlet>
