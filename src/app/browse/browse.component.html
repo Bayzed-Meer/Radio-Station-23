@@ -1,17 +1,17 @@
 <div class="flex">
   <div class="w-1/3 p-4">
     <mat-form-field class="w-full">
+      <mat-label>Find by Country</mat-label>
       <input
         matInput
         [formControl]="searchControl"
-        placeholder="Find by Country"
         (input)="filterItems('country')"
         (focus)="onFocus('country')"
         [matAutocomplete]="autoCountry"
       />
       <mat-autocomplete
         #autoCountry="matAutocomplete"
-        (optionSelected)="selectItem($event, 'country')"
+        (optionSelected)="selectItem($event, 'country'); applyFilters()"
       >
         <mat-option
           *ngFor="let country of filteredCountries"
@@ -26,17 +26,17 @@
 
   <div class="w-1/3 p-4">
     <mat-form-field class="w-full">
+      <mat-label>Find by Language</mat-label>
       <input
         matInput
         [formControl]="languageControl"
-        placeholder="Find by Language"
         (input)="filterItems('language')"
         (focus)="onFocus('language')"
         [matAutocomplete]="autoLanguage"
       />
       <mat-autocomplete
         #autoLanguage="matAutocomplete"
-        (optionSelected)="selectItem($event, 'language')"
+        (optionSelected)="selectItem($event, 'language'); applyFilters()"
       >
         <mat-option
           *ngFor="let language of filteredLanguages"
@@ -51,17 +51,18 @@
 
   <div class="w-1/3 p-4">
     <mat-form-field class="w-full">
+      <mat-label>Search by Name</mat-label>
+
       <input
         matInput
         [formControl]="nameControl"
-        placeholder="Search by Name"
         (input)="filterItems('name')"
         (focus)="onFocus('name')"
         [matAutocomplete]="autoName"
       />
       <mat-autocomplete
         #autoName="matAutocomplete"
-        (optionSelected)="selectItem($event, 'name')"
+        (optionSelected)="selectItem($event, 'name'); applyFilters()"
       >
         <mat-option *ngFor="let name of filteredNames" [value]="name">
           {{ name }}

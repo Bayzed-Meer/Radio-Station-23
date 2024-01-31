@@ -1,7 +1,7 @@
 <div
-  class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4"
+  class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
 >
-  <div *ngFor="let station of stations">
+  <div *ngFor="let station of filteredStations">
     <mat-card
       class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
     >
@@ -14,10 +14,10 @@
       </mat-card-header>
       <mat-card-content class="flex">
         <div class="inline-flex items-center py-4 gap-2">
-          <span class="bg-slate-300 rounded-2xl px-3 py-2">
+          <span class="bg-gray-300 rounded-2xl px-3 py-2">
             {{ station.language | titlecase }}</span
           >
-          <span class="bg-slate-300 rounded-2xl px-3 py-2">Classical</span>
+          <span class="bg-gray-300 rounded-2xl px-3 py-2">Classical</span>
         </div>
         <div>
           <span class="bg-[#283db4] text-white rounded-2xl px-3 py-2">
@@ -30,21 +30,29 @@
         <div class="flex px-4 gap-4">
           <button
             mat-button
-            (click)="toggleLike()"
+            (click)="toggleLike(station.stationuuid)"
             class="flex items-center justify-center gap-1"
           >
-            <mat-icon *ngIf="!isLiked">favorite_border</mat-icon>
-            <mat-icon *ngIf="isLiked" color="warn">favorite</mat-icon>
+            <mat-icon *ngIf="!likedStatus.get(station.stationuuid)"
+              >favorite_border</mat-icon
+            >
+            <mat-icon *ngIf="likedStatus.get(station.stationuuid)" color="warn"
+              >favorite</mat-icon
+            >
             LIKE
           </button>
-          <!-- Play/Pause button -->
+
           <button
             mat-button
-            (click)="togglePlayPause()"
+            (click)="togglePlayPause(station.stationuuid)"
             class="flex items-center justify-center gap-1"
           >
-            <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
-            <mat-icon *ngIf="isPlaying">pause</mat-icon>
+            <mat-icon *ngIf="!playingStatus.get(station.stationuuid)"
+              >play_arrow</mat-icon
+            >
+            <mat-icon *ngIf="playingStatus.get(station.stationuuid)"
+              >pause</mat-icon
+            >
             PLAY
           </button>
         </div>
