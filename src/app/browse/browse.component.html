@@ -6,9 +6,10 @@
         matInput
         [formControl]="searchControl"
         (input)="filterItems('country')"
-        (focus)="onFocus('country')"
         [matAutocomplete]="autoCountry"
+        (keyup.enter)="applyFilters()"
       />
+
       <mat-autocomplete
         #autoCountry="matAutocomplete"
         (optionSelected)="selectItem($event, 'country'); applyFilters()"
@@ -31,8 +32,8 @@
         matInput
         [formControl]="languageControl"
         (input)="filterItems('language')"
-        (focus)="onFocus('language')"
         [matAutocomplete]="autoLanguage"
+        (keyup.enter)="applyFilters()"
       />
       <mat-autocomplete
         #autoLanguage="matAutocomplete"
@@ -57,8 +58,8 @@
         matInput
         [formControl]="nameControl"
         (input)="filterItems('name')"
-        (focus)="onFocus('name')"
         [matAutocomplete]="autoName"
+        (keyup.enter)="applyFilters()"
       />
       <mat-autocomplete
         #autoName="matAutocomplete"

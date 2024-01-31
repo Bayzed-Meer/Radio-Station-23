@@ -29,7 +29,6 @@ export class RadioStationsComponent implements OnInit {
           this.playingStatus.set(station.stationuuid, false);
         });
 
-        console.log(this.stations);
         this.filterService.getSelectedFilters().subscribe((filters) => {
           this.applyFilters(filters);
         });
@@ -42,21 +41,30 @@ export class RadioStationsComponent implements OnInit {
 
   applyFilters(filters: any) {
     if (!filters.country && !filters.language && !filters.name) {
-      // If all filter values are null, show all stations
       this.filteredStations = this.stations;
       return;
     }
-
     this.filteredStations = this.stations.filter((station) => {
+      // console.log(station.name);
+      // console.log(filters.name);
       const countryFilter =
-        !filters.country || station.country === filters.country;
+        !filters.country ||
+        station.country.toLowerCase() === filters.country.toLowerCase();
+
       const languageFilter =
-        !filters.language || station.language === filters.language;
-      const nameFilter = !filters.name || station.name.includes(filters.name);
-      console.log(countryFilter);
+        !filters.language ||
+        station.language
+          .toLowerCase()
+          .split(' ')
+          .some((word: string) =>
+            filters.language.toLowerCase().includes(word)
+          );
+
+      const nameFilter =
+        !filters.name ||
+        station.name.toLowerCase().includes(filters.name.toLowerCase());
       return countryFilter && languageFilter && nameFilter;
     });
-    console.log(this.filteredStations);
   }
 
   toggleLike(stationUuid: string) {

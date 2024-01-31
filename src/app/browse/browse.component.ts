@@ -3,9 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Country } from '../country.model';
 import { CountryService } from '../country.service';
+import { FilterService } from '../filter.service';
 import { Language } from '../language.model';
 import { LanguageService } from '../language.service';
-import { FilterService } from '../filter.service';
+import { StationsService } from '../stations.service';
 
 @Component({
   selector: 'app-browse',
@@ -34,13 +35,14 @@ export class BrowseComponent implements OnInit {
   constructor(
     private countryService: CountryService,
     private languageService: LanguageService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private stationsService: StationsService
   ) {}
 
   ngOnInit() {
-    // Fetch data on initialization
     this.fetchCountries();
     this.fetchLanguages();
+    this.fetchStations();
   }
 
   fetchCountries() {
@@ -51,7 +53,6 @@ export class BrowseComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching countries:', error);
-        // Handle error as needed
       }
     );
   }
@@ -64,46 +65,45 @@ export class BrowseComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching languages:', error);
-        // Handle error as needed
       }
     );
   }
 
-  onFocus(field: string) {
-    switch (field) {
-      case 'country':
-        this.filteredCountries = this.countries.slice(0, 5);
-        break;
-      case 'language':
-        this.filteredLanguages = this.languages.slice(0, 5);
-        break;
-      case 'name':
+  fetchStations() {
+    this.stationsService.getStations().subscribe(
+      (stations) => {
+        this.names = stations.map((station) => station.name);
         this.filteredNames = this.names.slice(0, 5);
-        break;
-    }
+      },
+      (error) => {
+        console.error('Error fetching stations:', error);
+      }
+    );
   }
 
   filterItems(field: string) {
-    const searchQuery = this.getControlValue(field);
+    const searchQuery = this.getControlValue(field).toLowerCase();
 
     switch (field) {
       case 'country':
         this.filteredCountries = searchQuery
           ? this.countries.filter((country) =>
-              country.name.includes(searchQuery)
+              country.name.toLowerCase().includes(searchQuery)
             )
           : this.countries.slice(0, 5);
         break;
       case 'language':
         this.filteredLanguages = searchQuery
           ? this.languages.filter((language) =>
-              language.name.includes(searchQuery)
+              language.name.toLowerCase().includes(searchQuery)
             )
           : this.languages.slice(0, 5);
         break;
       case 'name':
         this.filteredNames = searchQuery
-          ? this.names.filter((name) => name.includes(searchQuery))
+          ? this.names.filter((name) =>
+              name.toLowerCase().includes(searchQuery)
+            )
           : this.names.slice(0, 5);
         break;
     }
@@ -132,15 +132,19 @@ export class BrowseComponent implements OnInit {
 
   applyFilters() {
     const filters = {
-      country: this.extractFirstWord(this.getControlValue('country')),
-      language: this.extractFirstWord(this.getControlValue('language')),
-      name: this.extractFirstWord(this.getControlValue('name')),
+      country: this.filter(this.getControlValue('country')),
+      language: this.filter(this.getControlValue('language')),
+      name: this.filter(this.getControlValue('name')),
     };
-
     this.filterService.setSelectedFilters(filters);
   }
 
-  private extractFirstWord(value: string): string {
-    return value ? value.split(' ')[0] : '';
+  private filter(value: string): string {
+    if (value) {
+      const words = value.split('|');
+      return words[0].trim();
+    } else {
+      return '';
+    }
   }
 }
