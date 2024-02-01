@@ -1,6 +1,6 @@
-<div class="w-[88vw]">
+<div class="w-[88vw] h-screen dark:bg-gray-900">
   <div *ngIf="favoriteStations.length === 0; else favoritesList">
-    <div class="flex flex-col items-center justify-center h-[50vh]">
+    <div class="flex flex-col items-center justify-center dark:text-white">
       <div class="text-center p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
         <p
           class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold mb-4"
@@ -18,16 +18,16 @@
 
   <ng-template #favoritesList>
     <div
-      class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4 pt-10"
+      class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4 pt-10 dark:text-white"
     >
       <div *ngFor="let station of favoriteStations">
         <mat-card
-          class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
+          class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md dark:bg-gray-800"
         >
           <mat-card
-            class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
+            class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md dark:bg-gray-800"
           >
-            <mat-card-header>
+            <mat-card-header class="dark:bg-gray-800 dark:border-none">
               <mat-card-title-group>
                 <mat-card-title>{{ station.name }}</mat-card-title>
                 <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
@@ -38,34 +38,41 @@
                 />
               </mat-card-title-group>
             </mat-card-header>
-            <mat-card-content class="flex min-h-[120px]">
+            <mat-card-content
+              class="flex min-h-[120px] dark:bg-gray-800 dark:border-none"
+            >
               <div class="inline-flex items-center py-4 gap-2">
-                <span class="bg-gray-300 rounded-2xl px-3 py-2">
+                <span
+                  class="bg-gray-300 dark:bg-gray-700 rounded-2xl px-3 py-2"
+                >
                   {{ station.language | titlecase }}</span
                 >
               </div>
               <div>
-                <span class="bg-[#283db4] text-white rounded-2xl px-3 py-2">
+                <span
+                  class="bg-[#283db4] text-white dark:bg-gray-700 rounded-2xl px-3 py-2"
+                >
                   Votes: {{ station.votes | number }}
                 </span>
               </div>
             </mat-card-content>
-            <mat-card-actions class="flex justify-end">
+            <mat-card-actions
+              class="flex justify-end dark:bg-gray-800 dark:border-none"
+            >
               <div class="flex px-4 gap-4">
                 <button
                   mat-button
                   (click)="toggleLike(station.stationuuid)"
                   class="flex items-center justify-center gap-1"
                 >
-                  <mat-icon *ngIf="!likedStatus.get(station.stationuuid)">
-                    favorite_border
-                  </mat-icon>
+                  <mat-icon *ngIf="!likedStatus.get(station.stationuuid)"
+                    >favorite_border</mat-icon
+                  >
                   <mat-icon
                     *ngIf="likedStatus.get(station.stationuuid)"
                     color="warn"
+                    >favorite</mat-icon
                   >
-                    favorite
-                  </mat-icon>
                   LIKE
                 </button>
 
@@ -74,12 +81,14 @@
                   (click)="togglePlayPause(station.stationuuid)"
                   class="flex items-center justify-center gap-1"
                 >
-                  <mat-icon *ngIf="!playingStatus.get(station.stationuuid)">
-                    play_arrow
-                  </mat-icon>
-                  <mat-icon *ngIf="playingStatus.get(station.stationuuid)">
-                    pause
-                  </mat-icon>
+                  <mat-icon *ngIf="!playingStatus.get(station.stationuuid)"
+                    >play_arrow</mat-icon
+                  >
+                  <mat-icon
+                    *ngIf="playingStatus.get(station.stationuuid)"
+                    color="warn"
+                    >pause</mat-icon
+                  >
                   PLAY
                 </button>
               </div>

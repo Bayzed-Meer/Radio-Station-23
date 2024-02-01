@@ -29,9 +29,9 @@
               >Classical</span
             >
           </div>
-          <div>
+          <div class="pb-4">
             <span
-              class="bg-[#283db4] text-white dark:bg-gray-700 rounded-2xl px-3 py-2"
+              class="bg-[#283db4] text-white dark:bg-gray-700 rounded-2xl px-3 py-2 z-10"
               >Votes: {{ station.votes | number }}</span
             >
           </div>
@@ -78,7 +78,7 @@
   <audio id="audioElement" (ended)="audioEnded()"></audio>
 
   <div
-    class="p-5 bg-[#283db4] text-white flex justify-between dark:bg-gray-800"
+    class="ml-5 p-5 bg-[#283db4] text-white flex justify-between dark:bg-gray-800"
   >
     <div class="flex items-center justify-center gap-4">
       <ng-container *ngIf="currentPlayingStationInfo">
@@ -92,12 +92,12 @@
         <div class="dark:text-white">{{ currentPlayingStationInfo.name }}</div>
       </ng-container>
     </div>
-    <div class="flex gap-4">
+    <div class="flex gap-4 px-5">
       <div class="flex items-center justify-center dark:text-white">
         <button
           mat-icon-button
           (click)="openTimerDialog()"
-          class="dark:text-white"
+          class="dark:text-white flex items-center justify-center"
         >
           <mat-icon>timer</mat-icon>
         </button>

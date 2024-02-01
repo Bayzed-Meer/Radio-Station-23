@@ -1,11 +1,11 @@
 <div
-  class="w-full sm:w-[20vw] md:w-[15vw] lg:w-[12vw] min-h-screen sm:min-h-[93vh] pt-4 flex flex-col justify-between shadow-lg transition-all duration-500 ease-in-out"
+  class="w-full sm:w-[20vw] md:w-[15vw] lg:w-[12vw] h-screen sm:min-h-[93vh] pt-4 flex flex-col justify-between shadow-lg transition-all duration-500 ease-in-out dark:bg-gray-900"
 >
   <div>
     <!-- Navigation Items -->
     <div *ngFor="let item of navigationItems" (click)="onLinkClick(item.label)">
       <div
-        class="flex px-4 sm:px-6 py-2 sm:py-4 gap-3 hover:bg-gray-100 hover:cursor-pointer"
+        class="flex px-4 sm:px-6 py-2 sm:py-4 gap-3 hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-gray-800 dark:text-white"
       >
         <div><i [class]="item.iconClasses"></i></div>
         <div>{{ item.label }}</div>
@@ -13,18 +13,22 @@
     </div>
 
     <!-- Separator -->
-    <hr class="px-4 sm:px-6 py-1 border-t border-gray-200" />
+    <hr
+      class="px-4 sm:px-6 py-1 border-t border-gray-200 dark:border-gray-700"
+    />
 
     <!-- Notifications -->
-    <div class="px-4 sm:px-6 py-2 text-gray-500">Notifications</div>
+    <div class="px-4 sm:px-6 py-2 text-gray-500 dark:text-white">
+      Notifications
+    </div>
   </div>
 
   <!-- About Section -->
   <div
-    class="flex px-4 sm:px-6 py-2 sm:py-4 gap-3 hover:cursor-pointer"
+    class="flex px-4 sm:px-6 py-2 sm:py-4 gap-3 hover:cursor-pointer dark:hover:bg-gray-800"
     matTooltip="It is part of the project task completion round of Brain station 23"
   >
     <div><i class="fa fa-circle-info"></i></div>
-    <div>About</div>
+    <div class="dark:text-white">About</div>
   </div>
 </div>

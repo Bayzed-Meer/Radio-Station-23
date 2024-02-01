@@ -1,3 +1,4 @@
+// radio-stations.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../filter.service';
 import { StationsService } from '../stations.service';
@@ -99,75 +100,100 @@ export class RadioStationsComponent implements OnInit {
     );
   }
 
-  togglePlayPause(station: any) {
+  togglePlayPause(station: any): void {
     const stationUuid = station.stationuuid;
-    const currentStatus = this.playingStatus.get(stationUuid) || false;
+    const isCurrentlyPlaying = this.playingStatus.get(stationUuid) || false;
 
-    // Stop the currently playing station if any
-    if (
-      this.currentPlayingStation &&
-      this.currentPlayingStation !== stationUuid
-    ) {
-      this.playingStatus.set(this.currentPlayingStation, false);
-      this.pauseAudio();
+    // If the clicked station is different, stop the current one and play the new one
+    if (this.currentPlayingStation !== stationUuid) {
+      this.stopAndPlay(stationUuid, station.url_resolved);
+    } else {
+      // If the clicked station is the same, toggle between play and pause
+      this.togglePlayPauseCurrent(stationUuid, isCurrentlyPlaying);
     }
 
-    this.playingStatus.set(stationUuid, !currentStatus);
-
-    // Update the play/pause icon in the footer only if the station is different
-    if (stationUuid !== this.currentPlayingStation) {
-      this.currentPlayingStation = this.playingStatus.get(stationUuid)
-        ? stationUuid
-        : null;
-
-      // Add logic for play/pause functionality (e.g., audio playback control)
-      if (this.playingStatus.get(stationUuid)) {
-        // Start playing the station
-        this.playAudio(station.url_resolved);
-      } else {
-        // Pause the station
-        this.pauseAudio();
-      }
-
-      // Update the play/pause icon in the footer
-      this.updatePlayPauseIcon();
-    }
+    // Update the play/pause icon in the footer
+    this.updatePlayPauseIcon(stationUuid);
   }
 
-  playAudio(url: string): void {
-    const audioElement = document.getElementById(
-      'audioElement'
-    ) as HTMLAudioElement;
+  private togglePlayPauseCurrent(
+    stationUuid: string,
+    isCurrentlyPlaying: boolean
+  ): void {
+    // Toggle between play and pause for the current station
+    if (isCurrentlyPlaying) {
+      this.pauseAudio(stationUuid);
+    } else {
+      this.playAudio(
+        this.filteredStations.find(
+          (station) => station.stationuuid === stationUuid
+        )?.url_resolved || '',
+        stationUuid
+      );
+    }
+    this.playingStatus.set(stationUuid, !isCurrentlyPlaying);
+    this.updatePlayPauseIcon();
+  }
+
+  private stopAndPlay(stationUuid: string, url: string): void {
+    // Stop the currently playing station if any
+    if (this.currentPlayingStation) {
+      this.pauseAudio(this.currentPlayingStation);
+      this.playingStatus.set(this.currentPlayingStation, false);
+    }
+
+    // Play the new station
+    this.playAudio(url, stationUuid);
+    this.playingStatus.set(stationUuid, true);
+    this.currentPlayingStation = stationUuid;
+  }
+
+  // Rest of the code remains the same...
+
+  playAudio(url: string, stationUuid: string): void {
+    const audioElement = this.getAudioElement();
     if (audioElement) {
       audioElement.src = url;
-      audioElement.play();
+      audioElement
+        .play()
+        .then(() => {
+          this.currentPlayingStation = stationUuid;
+        })
+        .catch((error) => {
+          console.error('Error playing audio:', error);
+        });
     }
   }
 
-  pauseAudio(): void {
-    const audioElement = document.getElementById(
-      'audioElement'
-    ) as HTMLAudioElement;
-    if (audioElement) {
-      console.log('Pausing audio...');
+  pauseAudio(stationUuid?: string): void {
+    const audioElement = this.getAudioElement();
+    if (
+      audioElement &&
+      !audioElement.paused &&
+      !audioElement.ended &&
+      audioElement.currentTime > 0
+    ) {
       audioElement.pause();
-    } else {
-      console.log('Audio element not found!');
+      if (stationUuid) {
+        this.currentPlayingStation = stationUuid; // Restore the station UUID
+      }
     }
-    this.updatePlayPauseIcon(); // Ensure the icon is updated when pausing manually
+    this.updatePlayPauseIcon(stationUuid);
   }
 
-  updatePlayPauseIcon() {
-    if (this.currentPlayingStation) {
-      this.playPauseIcon = this.playingStatus.get(this.currentPlayingStation)
+  updatePlayPauseIcon(stationUuid?: string): void {
+    if (stationUuid) {
+      this.playPauseIcon = this.playingStatus.get(stationUuid)
         ? 'pause'
         : 'play_arrow';
-      this.currentPlayingStationInfo = this.filteredStations.find(
-        (station) => station.stationuuid === this.currentPlayingStation
-      );
+      this.currentPlayingStationInfo =
+        this.filteredStations.find(
+          (station) => station.stationuuid === stationUuid
+        ) || null;
     } else {
-      this.playPauseIcon = 'play_arrow';
-      this.currentPlayingStationInfo = null;
+      this.playPauseIcon = this.currentPlayingStationInfo
+        ? 'pause'
+        : 'play_arrow';
     }
   }
 
@@ -234,5 +260,10 @@ export class RadioStationsComponent implements OnInit {
     const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
     return `${formattedMinutes}:${formattedSeconds}`;
+  }
+
+  // Helper method to get the audio element
+  private getAudioElement(): HTMLAudioElement | null {
+    return document.getElementById('audioElement') as HTMLAudioElement;
   }
 }
