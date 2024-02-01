@@ -98,18 +98,22 @@ export class RadioStationsComponent implements OnInit {
     }
 
     this.playingStatus.set(stationUuid, !currentStatus);
-    this.currentPlayingStation = this.playingStatus.get(stationUuid)
-      ? stationUuid
-      : null;
 
-    // Update the play/pause icon in the footer
-    this.updatePlayPauseIcon();
+    // Update the play/pause icon in the footer only if the station is different
+    if (stationUuid !== this.currentPlayingStation) {
+      this.currentPlayingStation = this.playingStatus.get(stationUuid)
+        ? stationUuid
+        : null;
 
-    // Add logic for play/pause functionality (e.g., audio playback control)
-    if (this.playingStatus.get(stationUuid)) {
-      // Start playing the station
-    } else {
-      // Pause the station
+      // Add logic for play/pause functionality (e.g., audio playback control)
+      if (this.playingStatus.get(stationUuid)) {
+        // Start playing the station
+      } else {
+        // Pause the station
+      }
+
+      // Update the play/pause icon in the footer
+      this.updatePlayPauseIcon();
     }
   }
 
@@ -118,7 +122,7 @@ export class RadioStationsComponent implements OnInit {
       this.playPauseIcon = this.playingStatus.get(this.currentPlayingStation)
         ? 'pause'
         : 'play_arrow';
-      this.currentPlayingStationInfo = this.stations.find(
+      this.currentPlayingStationInfo = this.filteredStations.find(
         (station) => station.stationuuid === this.currentPlayingStation
       );
     } else {

@@ -21,6 +21,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     DisplayComponent,
     RadioStationsComponent,
     FavoritesComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
