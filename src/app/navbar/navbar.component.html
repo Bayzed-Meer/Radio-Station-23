@@ -1,22 +1,23 @@
 <div
-  class="flex items-center justify-between bg-[#3F51B5] text-white px-6 py-4"
+  class="flex items-center justify-between bg-[#3F51B5] text-white px-4 sm:px-6 py-2 sm:py-4 w-full"
 >
   <!-- Logo and Brand -->
-  <div class="flex items-center gap-2 px-4" (click)="toggleSidenav()">
+  <div class="flex items-center gap-2 sm:gap-4">
     <i
       class="material-icons text-xl cursor-pointer hover:text-gray-300 ease-in-out"
+      (click)="toggleSidenav()"
       >menu</i
     >
-    <div class="text-xl">Radio Station 23</div>
+    <div class="text-lg sm:text-lg lg:text-xl">Radio Station 23</div>
   </div>
 
   <!-- Theme Controls -->
-  <div class="flex items-center gap-4 px-4">
-    <i class="material-icons text-2xl">wb_sunny</i>
+  <div class="flex items-center gap-2 sm:gap-4">
+    <i class="material-icons text-lg sm:text-lg lg:text-2xl">wb_sunny</i>
     <mat-slide-toggle
       class="flex items-center"
       color="primary"
     ></mat-slide-toggle>
-    <i class="material-icons text-2xl">nights_stay</i>
+    <i class="material-icons text-lg sm:text-lg lg:text-2xl">nights_stay</i>
   </div>
 </div>
