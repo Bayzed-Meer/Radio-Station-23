@@ -26,8 +26,12 @@ export class RadioStationsComponent implements OnInit {
       (stations) => {
         this.stations = stations.sort((a, b) => b.votes - a.votes);
 
+        const likedStatus = localStorage.getItem('likedStatus');
+        this.likedStatus = likedStatus
+          ? new Map(JSON.parse(likedStatus))
+          : new Map();
+
         this.stations.forEach((station) => {
-          this.likedStatus.set(station.stationuuid, false);
           this.playingStatus.set(station.stationuuid, false);
         });
 
@@ -73,6 +77,12 @@ export class RadioStationsComponent implements OnInit {
   toggleLike(stationUuid: string) {
     const currentStatus = this.likedStatus.get(stationUuid) || false;
     this.likedStatus.set(stationUuid, !currentStatus);
+
+    // Save liked status to local storage
+    localStorage.setItem(
+      'likedStatus',
+      JSON.stringify(Array.from(this.likedStatus.entries()))
+    );
   }
 
   togglePlayPause(stationUuid: string) {

@@ -20,6 +20,7 @@ import { RadioStationsComponent } from './radio-stations/radio-stations.componen
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatListModule } from '@angular/material/list';
     BrowseComponent,
     DisplayComponent,
     RadioStationsComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,

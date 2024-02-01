@@ -1,0 +1,76 @@
+<!-- favorites.component.html -->
+<div class="favorites-container">
+  <div *ngIf="favoriteStations.length === 0; else favoritesList">
+    <p>No favorite stations yet. Start adding some!</p>
+  </div>
+
+  <ng-template #favoritesList>
+    <div
+      class="w-[87vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 pt-10"
+    >
+      <div *ngFor="let station of favoriteStations">
+        <mat-card
+          class="example-card transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
+        >
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ station.name }}</mat-card-title>
+              <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
+              <img
+                mat-card-md-image
+                [src]="station.favicon"
+                class="card-image"
+              />
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content class="flex min-height-card">
+            <div class="inline-flex items-center py-4 gap-2">
+              <span class="bg-gray-300 rounded-2xl px-3 py-2">
+                {{ station.language | titlecase }}</span
+              >
+            </div>
+            <div>
+              <span class="bg-[#283db4] text-white rounded-2xl px-3 py-2">
+                Votes: {{ station.votes | number }}
+              </span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="flex justify-end">
+            <div class="flex px-4 gap-4">
+              <button
+                mat-button
+                (click)="toggleLike(station.stationuuid)"
+                class="flex items-center justify-center gap-1"
+              >
+                <mat-icon *ngIf="!likedStatus.get(station.stationuuid)">
+                  favorite_border
+                </mat-icon>
+                <mat-icon
+                  *ngIf="likedStatus.get(station.stationuuid)"
+                  color="warn"
+                >
+                  favorite
+                </mat-icon>
+                LIKE
+              </button>
+
+              <button
+                mat-button
+                (click)="togglePlayPause(station.stationuuid)"
+                class="flex items-center justify-center gap-1"
+              >
+                <mat-icon *ngIf="!playingStatus.get(station.stationuuid)">
+                  play_arrow
+                </mat-icon>
+                <mat-icon *ngIf="playingStatus.get(station.stationuuid)">
+                  pause
+                </mat-icon>
+                PLAY
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </ng-template>
+</div>
