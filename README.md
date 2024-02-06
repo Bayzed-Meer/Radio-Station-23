@@ -1,27 +1,36 @@
-# RadioStation23
+# Project Development Approach
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+I started by understanding all the details of the project. I carefully read the project description to figure out what the project aimed to achieve. Then, I tried to imagine how users would interact with the project. Once I grasped what the project needed and the features it should have, I began the development.
 
-## Development server
+During development, I began by creating the design for each part of the project. After that, I added the features related to each component. I repeated this process to make sure everything was working well and to improve the project continuously. This step-by-step approach helped me create a well-organized and successful project.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Key Steps:
+1. **Understanding Project Details:**
+   - Read the full project description.
+   - Grasp the end goal of the project.
 
-## Code scaffolding
+2. **User Story Visualization:**
+   - Visualize how users will interact with the project.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. **Requirements and Functionalities:**
+   - Understand project requirements and functionalities.
 
-## Build
+4. **Development Phase:**
+   - Design each component.
+   - Add related features.
+   - Iterate the process for continuous improvement.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+This step-by-step methodology contributed to the creation of a well-organized and successful project.
 
-## Running unit tests
+#Browse Page
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Browse page](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/808bbb56-2ba8-4601-83e1-c09f9ad48649)
 
-## Running end-to-end tests
+#Radio Map Page
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![RadioStation23](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/03cd5173-dd4c-474d-8a83-b37b5d2be1b2)
 
-## Further help
+#Favorite Page
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![favorites](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/4d4a4175-944f-4d9f-a151-e85cd7a34d98)
+
