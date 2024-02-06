@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Radio-Station-23": {
+    "Radio-Station-23-prac": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,15 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/radio-station-23",
+            "outputPath": "dist/radio-station-23-prac",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
@@ -57,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Radio-Station-23:build:production"
+              "browserTarget": "Radio-Station-23-prac:build:production"
             },
             "development": {
-              "browserTarget": "Radio-Station-23:build:development"
+              "browserTarget": "Radio-Station-23-prac:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Radio-Station-23:build"
+            "browserTarget": "Radio-Station-23-prac:build"
           }
         },
         "test": {
@@ -76,10 +81,11 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -88,6 +94,6 @@
     }
   },
   "cli": {
-    "analytics": "fb711858-a031-439e-87a0-974ddf2140be"
+    "analytics": "2c431af4-ddd3-4221-8bbb-f330b8efcb4e"
   }
 }

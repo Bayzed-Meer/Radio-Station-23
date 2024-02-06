@@ -1,19 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { SelectedComponentService } from './selected-component.service'; // Adjust the path if needed
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  isSidenavOpen = true; // Adjust the initial state as needed
-
-  constructor(private selectedComponentService: SelectedComponentService) {}
-
-  ngOnInit() {
-    this.selectedComponentService.setSelectedComponent('Browse');
-  }
+export class AppComponent {
+  isSidenavOpen = false;
 
   toggleSidenav() {
     this.isSidenavOpen = !this.isSidenavOpen;

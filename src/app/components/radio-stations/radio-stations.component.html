@@ -1,0 +1,80 @@
+<div class="h-[74vh] overflow-auto">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 p-4 sm:p-6 lg:p-8"
+  >
+    <div
+      *ngFor="let station of filteredStations"
+      class="transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
+    >
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ station.name }}</mat-card-title>
+            <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
+            <img mat-card-md-image [src]="station.favicon" />
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content class="flex">
+          <div class="inline-flex items-center py-4 gap-2">
+            <span class="bg-slate-500 text-white rounded-2xl px-3 py-2">{{
+              station.language | titlecase
+            }}</span>
+            <span class="bg-slate-500 text-white rounded-2xl px-3 py-2"
+              >Classical</span
+            >
+          </div>
+          <div class="pb-4">
+            <span class="bg-[#3F51B5] text-white rounded-2xl px-3 py-2"
+              >Votes: {{ station.votes | number }}</span
+            >
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="flex justify-end">
+          <div class="flex px-4">
+            <button
+              mat-button
+              (click)="toggleFavorite(station.stationuuid)"
+              class="flex items-center justify-center"
+            >
+              <mat-icon
+                [color]="isStationFavorite(station.stationuuid) ? 'warn' : ''"
+              >
+                {{
+                  isStationFavorite(station.stationuuid)
+                    ? "favorite"
+                    : "favorite_border"
+                }}
+              </mat-icon>
+              LIKE
+            </button>
+
+            <button
+              mat-button
+              (click)="togglePlayPause(station)"
+              class="flex items-center justify-center"
+            >
+              <mat-icon *ngIf="!playingStatus.get(station.stationuuid)"
+                >play_arrow</mat-icon
+              >
+              <mat-icon
+                *ngIf="playingStatus.get(station.stationuuid)"
+                color="warn"
+                >pause</mat-icon
+              >
+              PLAY
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <audio id="audioElement" (ended)="audioEnded()"></audio>
+</div>
+<app-footer
+  [currentPlayingStationInfo]="currentPlayingStationInfo"
+  [playPauseIcon]="playPauseIcon"
+  (openTimerDialog)="openTimerDialog()"
+  [isTimerActive]="isTimerActive"
+  [timerDuration]="timerDuration"
+  (togglePlayPause)="togglePlayPause($event)"
+></app-footer>

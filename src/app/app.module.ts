@@ -2,43 +2,49 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowseComponent } from './browse/browse.component';
-import { DisplayComponent } from './display/display.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { RadioStationsComponent } from './radio-stations/radio-stations.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatListModule } from '@angular/material/list';
-import { FavoritesComponent } from './favorites/favorites.component';
-import { MapComponent } from './map/map.component';
+import { BrowseComponent } from './components/browse/browse.component';
+import { DisplayComponent } from './components/display/display.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { MapComponent } from './components/map/map.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RadioStationsComponent } from './components/radio-stations/radio-stations.component';
+import { FiltersComponent } from './components/filters/filters.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SidenavComponent,
-    BrowseComponent,
     DisplayComponent,
     RadioStationsComponent,
     FavoritesComponent,
     MapComponent,
+    BrowseComponent,
+    FiltersComponent,
+    FooterComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    InputSwitchModule,
     MatSlideToggleModule,
     MatTooltipModule,
     FormsModule,
@@ -51,6 +57,10 @@ import { MapComponent } from './map/map.component';
     MatCardModule,
     MatChipsModule,
     MatListModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

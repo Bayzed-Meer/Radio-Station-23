@@ -1,0 +1,59 @@
+<div
+  class="px-4 py-2 md:px-6 md:py-3 bg-[#283db4] text-white flex flex-row justify-between"
+>
+  <div class="flex items-center justify-center gap-2 md:gap-4">
+    <ng-container *ngIf="currentPlayingStationInfo">
+      <div>
+        <img
+          [src]="currentPlayingStationInfo.favicon"
+          alt="Station Favicon"
+          class="h-8 w-8 rounded-full mr-2"
+        />
+      </div>
+      <div class="text-xs md:text-base">
+        {{ currentPlayingStationInfo.name }}
+      </div>
+    </ng-container>
+  </div>
+  <div class="flex px-2 md:px-5">
+    <div class="flex items-center justify-center">
+      <!-- Timer button -->
+      <button
+        mat-icon-button
+        (click)="openTimerDialog.emit()"
+        class="flex items-center justify-center"
+      >
+        <mat-icon>timer</mat-icon>
+      </button>
+      <div *ngIf="isTimerActive" class="text-xs md:text-base">
+        {{ formatTime(timerDuration) }}
+      </div>
+    </div>
+    <div class="flex items-center justify-center">
+      <!-- Favorite button -->
+      <button mat-button (click)="toggleFavorite()">
+        <mat-icon [color]="isFavorite ? 'warn' : 'white'">favorite</mat-icon>
+      </button>
+    </div>
+    <div
+      *ngIf="currentPlayingStationInfo"
+      class="flex items-center justify-center"
+    >
+      <!-- Play/Pause button with customizable controls -->
+      <button
+        mat-button
+        (click)="togglePlayPause.emit(currentPlayingStationInfo)"
+      >
+        <mat-icon [color]="playPauseIcon === 'pause' ? 'warn' : 'white'">{{
+          playPauseIcon
+        }}</mat-icon>
+      </button>
+    </div>
+    <div class="flex items-center justify-center">
+      <!-- Mute button (example: you can replace it with your own implementation) -->
+      <button mat-icon-button (click)="toggleMute()">
+        <mat-icon>{{ isMuted ? "volume_off" : "volume_up" }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    [opened]="isSidenavOpen"
+    class="w-56 flex flex-col justify-between border-3"
+  >
+    <mat-list>
+      <mat-list-item routerLink="/browse" class="mb-2 md:mb-0"
+        ><i class="fa-solid fa-radio px-3"></i>
+        <span>Browse</span></mat-list-item
+      >
+      <mat-list-item routerLink="/map" class="mb-2 md:mb-0"
+        ><i class="fa-solid fa-earth-americas px-3"></i
+        ><span>Radio Map</span></mat-list-item
+      >
+      <mat-list-item routerLink="/favorites" class="mb-2 md:mb-0"
+        ><i class="fa-solid fa-bookmark px-[14px]"></i
+        ><span>Favorites</span></mat-list-item
+      >
+    </mat-list>
+    <!-- Separator -->
+    <hr class="px-4 sm:px-6 py-1" />
+
+    <!-- Notifications -->
+    <div class="px-4 sm:px-6 py-2">Notifications</div>
+
+    <!-- About Section -->
+    <div
+      class="flex sm:px-6 py-2 sm:py-4 gap-3"
+      matTooltip="It is part of the project task completion round of Brain station 23"
+    >
+      <div><i class="fa fa-circle-info pl-2"></i></div>
+      <div>About</div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="flex-grow">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
