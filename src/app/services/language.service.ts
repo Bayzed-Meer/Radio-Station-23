@@ -11,10 +11,10 @@ export class LanguageService {
   private apiUrl =
     'https://de1.api.radio-browser.info/json/languages?hidebroken=true&limit=100&reverse=true&order=stationcount';
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   getLanguages(): Observable<Language[]> {
-    return this.http.get<Language[]>(this.apiUrl).pipe(
+    return this.httpClient.get<Language[]>(this.apiUrl).pipe(
       catchError((error) => {
         console.error('Error fetching languages:', error);
         throw new Error('Failed to fetch languages. Please try again.');

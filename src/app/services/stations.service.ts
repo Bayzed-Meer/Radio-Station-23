@@ -8,12 +8,12 @@ import { catchError } from 'rxjs/operators';
 })
 export class StationsService {
   private apiUrl =
-    'http://de1.api.radio-browser.info/json/stations/topvote/100';
+    'https://de1.api.radio-browser.info/json/stations/topvote/100';
 
-  constructor(private http: HttpClient) {}
+  constructor(private https: HttpClient) {}
 
   getStations(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
+    return this.https.get<any[]>(this.apiUrl).pipe(
       catchError((error) => {
         console.error('Error fetching stations:', error);
         throw new Error('Failed to fetch stations. Please try again.');
@@ -22,13 +22,13 @@ export class StationsService {
   }
 
   getStationsWithGeolocation(): Observable<any[]> {
-    const geoUrl = 'http://de1.api.radio-browser.info/json/stations/search';
+    const geoUrl = 'https://de1.api.radio-browser.info/json/stations/search';
     const params = new HttpParams()
       .set('has_geo_info', 'true')
       .set('limit', '500')
       .set('hidebroken', 'true');
 
-    return this.http.get<any[]>(geoUrl, { params }).pipe(
+    return this.https.get<any[]>(geoUrl, { params }).pipe(
       catchError((error) => {
         console.error('Error fetching stations with geolocation:', error);
         throw new Error(

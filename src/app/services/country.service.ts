@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Country } from '../models//country.model';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CountryService {
-  private apiUrl = 'http://de1.api.radio-browser.info/json/countries';
+  private apiUrl = 'https://de1.api.radio-browser.info/json/countries'; // Updated to use HTTPS
 
   constructor(private http: HttpClient) {}
 
