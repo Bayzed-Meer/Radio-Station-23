@@ -53,12 +53,10 @@
               (click)="togglePlayPause(station)"
               class="flex items-center justify-center"
             >
-              <mat-icon *ngIf="!playingStatus.get(station.stationuuid)"
+              <mat-icon *ngIf="station.stationuuid !== currentPlayingStation"
                 >play_arrow</mat-icon
               >
-              <mat-icon
-                *ngIf="playingStatus.get(station.stationuuid)"
-                color="warn"
+              <mat-icon *ngIf="station.stationuuid === currentPlayingStation"
                 >pause</mat-icon
               >
               PLAY
@@ -68,7 +66,7 @@
       </mat-card>
     </div>
   </div>
-  <audio id="audioElement" (ended)="audioEnded()"></audio>
+  <audio id="audioElement"></audio>
 </div>
 <app-footer
   [currentPlayingStationInfo]="currentPlayingStationInfo"

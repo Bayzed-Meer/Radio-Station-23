@@ -1,9 +1,6 @@
 <mat-sidenav-container>
-  <mat-sidenav
-    [opened]="isSidenavOpen"
-    class="w-56 flex flex-col justify-between border-3"
-  >
-    <mat-list>
+  <mat-sidenav [opened]="isSidenavOpen">
+    <mat-nav-list class="w-56 flex flex-col">
       <mat-list-item routerLink="/browse" class="mb-2 md:mb-0"
         ><i class="fa-solid fa-radio px-3"></i>
         <span>Browse</span></mat-list-item
@@ -16,7 +13,7 @@
         ><i class="fa-solid fa-bookmark px-[14px]"></i
         ><span>Favorites</span></mat-list-item
       >
-    </mat-list>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="flex-grow">
     <router-outlet></router-outlet>
