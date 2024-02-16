@@ -1,36 +1,64 @@
-# Project Development Approach
+# Radio Station 23
 
-I started by understanding all the details of the project. I carefully read the project description to figure out what the project aimed to achieve. Then, I tried to imagine how users would interact with the project. Once I grasped what the project needed and the features it should have, I began the development.
+This project is an Angular-based Online Radio Player Application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. Built with Angular, the application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
 
-During development, I began by creating the design for each part of the project. After that, I added the features related to each component. I repeated this process to make sure everything was working well and to improve the project continuously. This step-by-step approach helped me create a well-organized and successful project.
+## Key Features
 
-## Key Steps:
-1. **Understanding Project Details:**
-   - Read the full project description.
-   - Grasp the end goal of the project.
+### Radio Station Discovery:
 
-2. **User Story Visualization:**
-   - Visualize how users will interact with the project.
+- Browse stations based on country, language, and name.
+- Utilize a geolocation-based map for station discovery.
 
-3. **Requirements and Functionalities:**
-   - Understand project requirements and functionalities.
+### Favourite Stations:
 
-4. **Development Phase:**
-   - Design each component.
-   - Add related features.
-   - Iterate the process for continuous improvement.
+- Allow users to save and access their favorite radio stations easily.
 
-This step-by-step methodology contributed to the creation of a well-organized and successful project.
+### Customizable Player Controls:
 
-#Browse Page
+- Provide user-friendly controls for play, pause etc.
+- Include additional options like muting, a sleep timer for pausing the player, and displaying station information.
 
-![Browse page](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/808bbb56-2ba8-4601-83e1-c09f9ad48649)
+### Responsive Design:
 
-#Radio Map Page
+- Ensure the application's responsiveness across different screen sizes and devices.
+- Enable users to enjoy their favorite radio stations seamlessly on desktops, tablets, and mobile phones.
 
-![RadioStation23](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/03cd5173-dd4c-474d-8a83-b37b5d2be1b2)
+### Local Storage:
 
-#Favorite Page
+- Implement local storage to store user preferences, such as theme (dark/light mode), and favorite radio stations for persistence across sessions.
 
-![favorites](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/4d4a4175-944f-4d9f-a151-e85cd7a34d98)
+## Screenshots
+
+Browse Page
+
+![browse](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/e230e918-219c-4b30-84d8-7d39facd44f4)
+
+Radio Map Page
+
+![map](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/ab027d63-253c-4296-b62b-f896928d4d89)
+
+Favorite Page
+
+![favorite](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/3cb8d04e-bbec-47c8-8d55-0066b5c556c9)
+
+
+## Getting Started
+1. Clone this repository.
+2. Install dependencies: `npm install`
+3. Run the application: `ng serve`
+
+
+## Contribution Guidelines
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Open a pull request.
+
+## Future Scope
+- Background playback support.
+- Offline listening feature.
+- Social media integration for sharing favorite stations.
+- Implementation of infinite scroll for the radio station list.
+- Audio visualizer for the player.
 
