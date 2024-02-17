@@ -15,12 +15,13 @@ import { FavoriteStationsService } from '../../services/favorite-stations.servic
 export class FooterComponent {
   @Input() currentPlayingStationInfo: any;
   @Input() playPauseIcon!: string;
-  @Input() isTimerActive!: boolean;
-  @Input() timerDuration!: number | null;
 
-  @Output() openTimerDialog = new EventEmitter<void>();
+  @Output() pauseAudio = new EventEmitter<void>();
   @Output() togglePlayPause = new EventEmitter<void>();
 
+  timerDuration: number | null = null;
+  isTimerActive: boolean = false;
+  timerInterval: any;
   isMuted: boolean = false;
   isFavorite: boolean = false;
 
@@ -77,6 +78,44 @@ export class FooterComponent {
     const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
     return `${formattedMinutes}:${formattedSeconds}`;
+  }
+
+  openTimerDialog(): void {
+    const userInput = prompt('Enter timer duration (in seconds):');
+    const parsedDuration = userInput ? parseInt(userInput, 10) : null;
+
+    if (
+      parsedDuration !== null &&
+      !isNaN(parsedDuration) &&
+      parsedDuration > 0
+    ) {
+      this.timerDuration = parsedDuration;
+      this.startTimer();
+    } else {
+      alert(
+        'Invalid input for timer duration. Please enter a valid positive number.'
+      );
+    }
+  }
+
+  startTimer(): void {
+    if (!this.isTimerActive && this.timerDuration !== null) {
+      this.isTimerActive = true;
+      this.timerInterval = setInterval(() => {
+        this.timerDuration = (this.timerDuration ?? 0) - 1;
+
+        if (this.timerDuration <= 0) {
+          this.stopTimer();
+        }
+      }, 1000);
+    }
+  }
+
+  stopTimer(): void {
+    clearInterval(this.timerInterval);
+    this.isTimerActive = false;
+    this.timerDuration = null;
+    this.pauseAudio.emit();
   }
 
   private getAudioElement(): HTMLAudioElement | null {

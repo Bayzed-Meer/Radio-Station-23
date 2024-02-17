@@ -66,13 +66,10 @@
       </mat-card>
     </div>
   </div>
-  <audio id="audioElement"></audio>
+  <audio #audioElement></audio>
 </div>
 <app-footer
   [currentPlayingStationInfo]="currentPlayingStationInfo"
   [playPauseIcon]="playPauseIcon"
-  (openTimerDialog)="openTimerDialog()"
-  [isTimerActive]="isTimerActive"
-  [timerDuration]="timerDuration"
   (togglePlayPause)="togglePlayPause($event)"
 ></app-footer>

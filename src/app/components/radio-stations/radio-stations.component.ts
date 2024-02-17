@@ -1,32 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FavoriteStationsService } from '../../services/favorite-stations.service';
 import { FilterService } from '../../services/filter.service';
 import { StationsService } from '../../services/stations.service';
+import { AudioService } from 'src/app/services/audio.service';
 
 @Component({
   selector: 'app-radio-stations',
   templateUrl: './radio-stations.component.html',
   styleUrls: ['./radio-stations.component.scss'],
 })
-export class RadioStationsComponent implements OnInit {
+export class RadioStationsComponent implements OnInit, AfterViewInit {
   currentPlayingStation: string | null = null;
   currentPlayingStationInfo: any = null;
   playPauseIcon: string = 'play_arrow';
   stations: any[] = [];
   filteredStations: any[] = [];
-  timerDuration: number | null = null;
-  isTimerActive: boolean = false;
-  timerInterval: any;
+
   constructor(
     private stationsService: StationsService,
     private filterService: FilterService,
-    private favoriteStationsService: FavoriteStationsService
+    private favoriteStationsService: FavoriteStationsService,
+    private audioService: AudioService
   ) {}
 
   ngOnInit() {
     this.stationsService.getStations().subscribe(
       (stations) => {
-        this.stations = stations.sort((a, b) => b.votes - a.votes);
+        this.stations = stations;
 
         this.filterService.getSelectedFilters().subscribe((filters) => {
           this.applyFilters(filters);
@@ -36,6 +42,18 @@ export class RadioStationsComponent implements OnInit {
         console.error('Error fetching stations:', error);
       }
     );
+  }
+  @ViewChild('audioElement', { static: false }) audioElementRef!: ElementRef;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const audioElement = this.audioElementRef
+        ?.nativeElement as HTMLAudioElement;
+
+      if (audioElement) {
+        this.audioService.setAudioElement(audioElement);
+      }
+    }, 2000);
   }
 
   applyFilters(filters: any) {
@@ -82,74 +100,20 @@ export class RadioStationsComponent implements OnInit {
     const stationUuid = station.stationuuid;
     const stationUrl = station.url_resolved;
     if (stationUuid === this.currentPlayingStation) {
-      this.pauseAudio();
+      this.audioService.pause();
+      this.updatePlayPauseIcon();
+      this.currentPlayingStation = null;
     } else {
-      if (this.currentPlayingStation !== null) this.pauseAudio();
+      if (this.currentPlayingStation !== null) this.audioService.pause();
       this.currentPlayingStationInfo = station;
       this.currentPlayingStation = stationUuid;
-      this.playAudio(stationUrl);
+      this.audioService.play(stationUrl);
+      this.updatePlayPauseIcon();
     }
-  }
-
-  playAudio(url: string): void {
-    const audioElement = this.getAudioElement();
-    audioElement!.src = url;
-    audioElement!.play();
-    this.updatePlayPauseIcon();
-  }
-
-  pauseAudio(): void {
-    const audioElement = this.getAudioElement();
-
-    audioElement!.pause();
-    this.currentPlayingStation = null;
-    this.updatePlayPauseIcon();
   }
 
   updatePlayPauseIcon(): void {
     this.playPauseIcon =
       this.playPauseIcon === 'play_arrow' ? 'pause' : 'play_arrow';
-  }
-
-  openTimerDialog(): void {
-    const userInput = prompt('Enter timer duration (in seconds):');
-    const parsedDuration = userInput ? parseInt(userInput, 10) : null;
-
-    if (
-      parsedDuration !== null &&
-      !isNaN(parsedDuration) &&
-      parsedDuration > 0
-    ) {
-      this.timerDuration = parsedDuration;
-      this.startTimer();
-    } else {
-      alert(
-        'Invalid input for timer duration. Please enter a valid positive number.'
-      );
-    }
-  }
-
-  startTimer(): void {
-    if (!this.isTimerActive && this.timerDuration !== null) {
-      this.isTimerActive = true;
-      this.timerInterval = setInterval(() => {
-        this.timerDuration = (this.timerDuration ?? 0) - 1;
-
-        if (this.timerDuration <= 0) {
-          this.stopTimer();
-        }
-      }, 1000);
-    }
-  }
-
-  stopTimer(): void {
-    clearInterval(this.timerInterval);
-    this.isTimerActive = false;
-    this.timerDuration = null;
-    this.pauseAudio();
-  }
-
-  private getAudioElement(): HTMLAudioElement | null {
-    return document.getElementById('audioElement') as HTMLAudioElement;
   }
 }

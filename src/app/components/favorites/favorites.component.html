@@ -1,18 +1,5 @@
 <div>
-  <div *ngIf="favoriteStations.length === 0; else favoritesList">
-    <div class="flex flex-col items-center justify-center h-[93vh]">
-      <div class="text-center p-4">
-        <p class="text-lg md:text-3xl font-semibold mb-4">
-          No favorite stations yet.
-        </p>
-        <p class="text-gray-500 text-sm md:text-xl">
-          Start adding your favorite stations to listen to them anytime!
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <ng-template #favoritesList>
+  <ng-container *ngIf="favoriteStations.length > 0; else noFavorites">
     <div class="h-[85vh] overflow-auto">
       <div
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 p-4 sm:p-6 lg:p-8"
@@ -70,12 +57,12 @@
                   (click)="togglePlayPause(station)"
                   class="flex items-center justify-center"
                 >
-                  <mat-icon *ngIf="!playingStatus.get(station.stationuuid)"
+                  <mat-icon
+                    *ngIf="station.stationuuid !== currentPlayingStation"
                     >play_arrow</mat-icon
                   >
                   <mat-icon
-                    *ngIf="playingStatus.get(station.stationuuid)"
-                    color="warn"
+                    *ngIf="station.stationuuid === currentPlayingStation"
                     >pause</mat-icon
                   >
                   PLAY
@@ -86,14 +73,24 @@
         </div>
       </div>
     </div>
-    <audio id="audioElement" (ended)="audioEnded()"></audio>
+    <audio #audioElement></audio>
     <app-footer
       [currentPlayingStationInfo]="currentPlayingStationInfo"
       [playPauseIcon]="playPauseIcon"
-      (openTimerDialog)="openTimerDialog()"
-      [isTimerActive]="isTimerActive"
-      [timerDuration]="timerDuration"
       (togglePlayPause)="togglePlayPause($event)"
     ></app-footer>
+  </ng-container>
+
+  <ng-template #noFavorites>
+    <div class="flex flex-col items-center justify-center h-[93vh]">
+      <div class="text-center p-4">
+        <p class="text-lg md:text-3xl font-semibold mb-4">
+          No favorite stations yet.
+        </p>
+        <p class="text-gray-500 text-sm md:text-xl">
+          Start adding your favorite stations to listen to them anytime!
+        </p>
+      </div>
+    </div>
   </ng-template>
 </div>
