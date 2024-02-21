@@ -22,24 +22,24 @@ import { DisplayComponent } from './components/display/display.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { MapComponent } from './components/map/map.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { RadioStationsComponent } from './components/radio-stations/radio-stations.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { StationsComponent } from './components/stations/stations.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     DisplayComponent,
-    RadioStationsComponent,
     FavoritesComponent,
     MapComponent,
     BrowseComponent,
     FiltersComponent,
     FooterComponent,
     PageNotFoundComponent,
+    StationsComponent,
   ],
   imports: [
     BrowserModule,

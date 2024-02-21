@@ -5,44 +5,38 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { FavoriteStationsService } from '../../services/favorite-stations.service';
-import { FilterService } from '../../services/filter.service';
 import { StationsService } from '../../services/stations.service';
+import { FavoriteStationsService } from '../../services/favorite-stations.service';
 import { AudioService } from 'src/app/services/audio.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-radio-stations',
-  templateUrl: './radio-stations.component.html',
-  styleUrls: ['./radio-stations.component.scss'],
+  selector: 'app-stations',
+  templateUrl: './stations.component.html',
+  styleUrls: ['./stations.component.scss'],
 })
-export class RadioStationsComponent implements OnInit, AfterViewInit {
+export class StationsComponent implements OnInit, AfterViewInit {
   currentPlayingStation: string | null = null;
   currentPlayingStationInfo: any = null;
   playPauseIcon: string = 'play_arrow';
+  allStations: any[] = [];
   stations: any[] = [];
-  filteredStations: any[] = [];
+  isFavoritesRoute: boolean = false;
 
   constructor(
     private stationsService: StationsService,
-    private filterService: FilterService,
     private favoriteStationsService: FavoriteStationsService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.stationsService.getStations().subscribe(
-      (stations) => {
-        this.stations = stations;
-
-        this.filterService.getSelectedFilters().subscribe((filters) => {
-          this.applyFilters(filters);
-        });
-      },
-      (error) => {
-        console.error('Error fetching stations:', error);
-      }
-    );
+    this.route.url.subscribe((segments) => {
+      this.isFavoritesRoute = segments[0]?.path === 'favorites';
+      this.loadStations();
+    });
   }
+
   @ViewChild('audioElement', { static: false }) audioElementRef!: ElementRef;
 
   ngAfterViewInit() {
@@ -56,13 +50,30 @@ export class RadioStationsComponent implements OnInit, AfterViewInit {
     }, 2000);
   }
 
+  loadStations(): void {
+    this.stationsService.getStations().subscribe(
+      (stations) => {
+        this.allStations = stations;
+
+        if (this.isFavoritesRoute) {
+          this.loadFavoriteStations();
+        } else {
+          this.applyFilters({});
+        }
+      },
+      (error) => {
+        console.error('Error fetching stations:', error);
+      }
+    );
+  }
+
   applyFilters(filters: any) {
     if (!filters.country && !filters.language && !filters.name) {
-      this.filteredStations = this.stations;
+      this.stations = this.allStations;
       return;
     }
 
-    this.filteredStations = this.stations.filter((station) => {
+    this.stations = this.allStations.filter((station) => {
       const countryFilter =
         !filters.country ||
         station.country.toLowerCase() === filters.country.toLowerCase();
@@ -84,11 +95,24 @@ export class RadioStationsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  loadFavoriteStations(): void {
+    const favoriteStationUuids =
+      this.favoriteStationsService.getFavoriteStations();
+
+    this.stations = this.allStations.filter((station) =>
+      favoriteStationUuids.includes(station.stationuuid)
+    );
+  }
+
   toggleFavorite(stationUuid: any): void {
     if (this.favoriteStationsService.isStationFavorite(stationUuid)) {
       this.favoriteStationsService.removeFromFavoriteStations(stationUuid);
     } else {
       this.favoriteStationsService.addToFavoriteStations(stationUuid);
+    }
+
+    if (this.isFavoritesRoute) {
+      this.loadFavoriteStations();
     }
   }
 
@@ -99,6 +123,7 @@ export class RadioStationsComponent implements OnInit, AfterViewInit {
   togglePlayPause(station: any): void {
     const stationUuid = station.stationuuid;
     const stationUrl = station.url_resolved;
+
     if (stationUuid === this.currentPlayingStation) {
       this.audioService.pause();
       this.updatePlayPauseIcon();

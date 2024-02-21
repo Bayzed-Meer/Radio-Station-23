@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AudioService {
   private audioElement!: HTMLAudioElement | null;
+  isMuted: boolean = false;
 
   setAudioElement(audioElement: HTMLAudioElement): void {
     this.audioElement = audioElement;
@@ -20,6 +21,12 @@ export class AudioService {
   pause(): void {
     if (this.audioElement) {
       this.audioElement.pause();
+    }
+  }
+  toggleMute(): void {
+    if (this.audioElement) {
+      this.isMuted = !this.isMuted;
+      this.audioElement.muted = this.isMuted;
     }
   }
 }

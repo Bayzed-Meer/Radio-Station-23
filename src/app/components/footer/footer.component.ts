@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FavoriteStationsService } from '../../services/favorite-stations.service';
+import { AudioService } from 'src/app/services/audio.service';
 
 @Component({
   selector: 'app-footer',
@@ -25,7 +26,10 @@ export class FooterComponent {
   isMuted: boolean = false;
   isFavorite: boolean = false;
 
-  constructor(private favoriteStationsService: FavoriteStationsService) {}
+  constructor(
+    private favoriteStationsService: FavoriteStationsService,
+    private audioService: AudioService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentPlayingStationInfo']) {
@@ -59,11 +63,8 @@ export class FooterComponent {
   }
 
   toggleMute(): void {
-    const audioElement = this.getAudioElement();
-    if (audioElement) {
-      this.isMuted = !this.isMuted;
-      audioElement.muted = this.isMuted;
-    }
+    this.audioService.toggleMute();
+    this.isMuted = !this.isMuted;
   }
 
   formatTime(seconds: number | null): string {
@@ -116,9 +117,5 @@ export class FooterComponent {
     this.isTimerActive = false;
     this.timerDuration = null;
     this.pauseAudio.emit();
-  }
-
-  private getAudioElement(): HTMLAudioElement | null {
-    return document.getElementById('audioElement') as HTMLAudioElement;
   }
 }
