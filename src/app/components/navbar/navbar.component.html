@@ -1,21 +1,23 @@
-<mat-toolbar color="primary" class="flex items-center justify-between">
-  <!-- Menu and Brand Name -->
-  <div class="flex items-center">
-    <button mat-icon-button (click)="toggleSidenav()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="text-sm md:text-lg">Radio Station 23</span>
-  </div>
+<div class="bg-primary">
+  <nav class="flex items-center justify-between w-[96%] mx-auto py-2">
+    <!-- Menu and Brand Name -->
+    <div class="flex items-center text-white">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="text-sm md:text-lg">Radio Station 23</span>
+    </div>
 
-  <!-- Theme Controls -->
-  <div class="flex items-center gap-2 md:gap-8 md:px-8">
-    <i class="material-icons text-base md:text-2xl">wb_sunny</i>
-    <mat-slide-toggle
-      class="flex items-center"
-      color="primary"
-      [checked]="isLightMode"
-      (change)="toggle($event)"
-    ></mat-slide-toggle>
-    <i class="material-icons text-base md:text-2xl">nights_stay</i>
-  </div>
-</mat-toolbar>
+    <!-- Theme Controls -->
+    <div class="flex items-center gap-2 md:gap-8 text-white">
+      <i class="material-icons text-base md:text-2xl">wb_sunny</i>
+      <mat-slide-toggle
+        class="flex items-center"
+        color="primary"
+        [checked]="isLightMode"
+        (change)="toggle($event)"
+      ></mat-slide-toggle>
+      <i class="material-icons text-base md:text-2xl">nights_stay</i>
+    </div>
+  </nav>
+</div>

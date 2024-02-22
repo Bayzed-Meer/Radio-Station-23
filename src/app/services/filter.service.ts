@@ -12,7 +12,6 @@ export class FilterService {
 
   setSelectedFilters(filters: any) {
     this.selectedFiltersSubject.next(filters);
-    console.log(filters);
   }
 
   getSelectedFilters(): Observable<any> {

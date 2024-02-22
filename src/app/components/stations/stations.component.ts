@@ -1,15 +1,15 @@
 import {
-  Component,
-  OnInit,
   AfterViewInit,
-  ViewChild,
+  Component,
   ElementRef,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
-import { StationsService } from '../../services/stations.service';
-import { FavoriteStationsService } from '../../services/favorite-stations.service';
-import { AudioService } from 'src/app/services/audio.service';
 import { ActivatedRoute } from '@angular/router';
+import { AudioService } from 'src/app/services/audio.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { FavoriteStationsService } from '../../services/favorite-stations.service';
+import { StationsService } from '../../services/stations.service';
 
 @Component({
   selector: 'app-stations',
@@ -88,17 +88,16 @@ export class StationsComponent implements OnInit, AfterViewInit {
 
       const languageFilter =
         !filters.language ||
-        station.language
+        filters.language
           .toLowerCase()
           .split(' ')
           .some((word: string) =>
-            filters.language.toLowerCase().includes(word)
+            station.language.toLowerCase().includes(word)
           );
 
       const nameFilter =
         !filters.name ||
         station.name.toLowerCase().includes(filters.name.toLowerCase());
-
       return countryFilter && languageFilter && nameFilter;
     });
   }

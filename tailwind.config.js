@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        primary: '#3c4ca9'
+      }
+    },
   },
   plugins: [
   ],
