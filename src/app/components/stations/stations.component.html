@@ -1,80 +1,88 @@
 <div
-  [ngStyle]="{ height: isFavoritesRoute ? '85vh' : '74vh' }"
+  [ngStyle]="{ height: isFavoritesRoute ? '85.6vh' : '74vh' }"
   class="overflow-auto"
-  *ngIf="stations.length > 0"
+  *ngIf="!loading && stations.length > 0; else noFavorite"
 >
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 p-4 sm:p-6 lg:p-8"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 py-4 sm:px-6 lg:px-8"
   >
-    <div
+    <mat-card
       *ngFor="let station of stations"
       class="transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md"
     >
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{ station.name }}</mat-card-title>
-            <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
-            <img mat-card-md-image [src]="station.favicon" />
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content class="flex">
-          <div class="inline-flex items-center py-4 gap-2">
-            <span class="bg-slate-500 text-white rounded-2xl px-3 py-2">{{
-              station.language | titlecase
-            }}</span>
-            <span class="bg-slate-500 text-white rounded-2xl px-3 py-2"
-              >Classical</span
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>{{ station.name }}</mat-card-title>
+          <mat-card-subtitle>{{ station.country }}</mat-card-subtitle>
+          <img mat-card-md-image [src]="station.favicon" />
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content class="flex">
+        <div class="inline-flex items-center py-4 gap-2">
+          <span class="bg-slate-500 text-white rounded-2xl px-3 py-2">{{
+            station.language | titlecase
+          }}</span>
+          <span class="bg-slate-500 text-white rounded-2xl px-3 py-2"
+            >Classical</span
+          >
+        </div>
+        <div class="pb-4">
+          <span class="bg-[#3F51B5] text-white rounded-2xl px-3 py-2"
+            >Votes: {{ station.votes | number }}</span
+          >
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="flex justify-end">
+        <div class="flex px-4">
+          <button
+            mat-button
+            (click)="toggleFavorite(station.stationuuid)"
+            class="flex items-center justify-center"
+          >
+            <mat-icon
+              [color]="isStationFavorite(station.stationuuid) ? 'warn' : ''"
             >
-          </div>
-          <div class="pb-4">
-            <span class="bg-[#3F51B5] text-white rounded-2xl px-3 py-2"
-              >Votes: {{ station.votes | number }}</span
-            >
-          </div>
-        </mat-card-content>
-        <mat-card-actions class="flex justify-end">
-          <div class="flex px-4">
-            <button
-              mat-button
-              (click)="toggleFavorite(station.stationuuid)"
-              class="flex items-center justify-center"
-            >
-              <mat-icon
-                [color]="isStationFavorite(station.stationuuid) ? 'warn' : ''"
-              >
-                {{
-                  isStationFavorite(station.stationuuid)
-                    ? "favorite"
-                    : "favorite_border"
-                }}
-              </mat-icon>
-              LIKE
-            </button>
+              {{
+                isStationFavorite(station.stationuuid)
+                  ? "favorite"
+                  : "favorite_border"
+              }}
+            </mat-icon>
+            LIKE
+          </button>
 
-            <button
-              mat-button
-              (click)="togglePlayPause(station)"
-              class="flex items-center justify-center"
+          <button
+            mat-button
+            (click)="togglePlayPause(station)"
+            class="flex items-center justify-center"
+          >
+            <mat-icon *ngIf="station.stationuuid !== currentPlayingStation"
+              >play_arrow</mat-icon
             >
-              <mat-icon *ngIf="station.stationuuid !== currentPlayingStation"
-                >play_arrow</mat-icon
-              >
-              <mat-icon *ngIf="station.stationuuid === currentPlayingStation"
-                >pause</mat-icon
-              >
-              PLAY
-            </button>
-          </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+            <mat-icon *ngIf="station.stationuuid === currentPlayingStation"
+              >pause</mat-icon
+            >
+            PLAY
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
-
-<div *ngIf="stations.length === 0">
-  <div class="flex flex-col items-center justify-center">
-    <div class="text-center p-4">
+<ng-template #noFavorite>
+  <div class="flex flex-col items-center justify-center h-[93vh]">
+    <div class="text-center p-4" *ngIf="loading">
+      <p class="text-lg md:text-3xl font-semibold">
+        Hold on! We're connecting to stations...
+        <mat-icon class="animate-bounce">queue_music</mat-icon>
+        <mat-icon class="animate-bounce">queue_music</mat-icon>
+        <mat-icon class="animate-bounce">queue_music</mat-icon>
+      </p>
+    </div>
+    <div class="text-center p-4" *ngIf="!loading && stations.length === 0">
+      <p class="text-lg md:text-3xl font-semibold mb-4">No stations found...</p>
+    </div>
+    <div class="text-center p-4" *ngIf="!loading && isFavoritesRoute">
       <p class="text-lg md:text-3xl font-semibold mb-4">
         No favorite stations yet.
       </p>
@@ -83,7 +91,7 @@
       </p>
     </div>
   </div>
-</div>
+</ng-template>
 
 <audio #audioElement></audio>
 <app-footer

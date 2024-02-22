@@ -9,6 +9,7 @@ import { StationsService } from '../../services/stations.service';
 import { FavoriteStationsService } from '../../services/favorite-stations.service';
 import { AudioService } from 'src/app/services/audio.service';
 import { ActivatedRoute } from '@angular/router';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-stations',
@@ -22,11 +23,13 @@ export class StationsComponent implements OnInit, AfterViewInit {
   allStations: any[] = [];
   stations: any[] = [];
   isFavoritesRoute: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private stationsService: StationsService,
     private favoriteStationsService: FavoriteStationsService,
     private audioService: AudioService,
+    private filterService: FilterService,
     private route: ActivatedRoute
   ) {}
 
@@ -51,6 +54,7 @@ export class StationsComponent implements OnInit, AfterViewInit {
   }
 
   loadStations(): void {
+    this.loading = true;
     this.stationsService.getStations().subscribe(
       (stations) => {
         this.allStations = stations;
@@ -58,11 +62,15 @@ export class StationsComponent implements OnInit, AfterViewInit {
         if (this.isFavoritesRoute) {
           this.loadFavoriteStations();
         } else {
-          this.applyFilters({});
+          this.filterService.getSelectedFilters().subscribe((filters) => {
+            this.applyFilters(filters);
+          });
         }
+        this.loading = false;
       },
       (error) => {
         console.error('Error fetching stations:', error);
+        this.loading = false;
       }
     );
   }
