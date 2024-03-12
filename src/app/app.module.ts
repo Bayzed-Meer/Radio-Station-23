@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,14 +21,13 @@ import { AppComponent } from './app.component';
 import { BrowseComponent } from './components/browse/browse.component';
 import { DisplayComponent } from './components/display/display.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
-import { MapComponent } from './components/map/map.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { MatSliderModule } from '@angular/material/slider';
+import { MapComponent } from './components/map/map.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { StationsComponent } from './components/stations/stations.component';
-import { TimeFormatPipe } from './time-format.pipe';
+import { TimeFormatPipe } from './pipes/time-format.pipe';
 
 @NgModule({
   declarations: [

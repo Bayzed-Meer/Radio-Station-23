@@ -100,6 +100,6 @@ export class FooterComponent {
     clearInterval(this.timerInterval);
     this.isTimerActive = false;
     this.timerDuration = null;
-    this.audioService.pause();
+    this.togglePlayPause.emit(this.currentPlayingStationInfo);
   }
 }
