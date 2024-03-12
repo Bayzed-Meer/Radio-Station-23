@@ -1,18 +1,15 @@
 <mat-sidenav-container>
   <mat-sidenav [opened]="isSidenavOpen">
     <mat-nav-list class="w-56 flex flex-col">
-      <mat-list-item routerLink="/browse" class="mb-2 md:mb-0"
-        ><i class="fa-solid fa-radio px-3"></i>
-        <span>Browse</span></mat-list-item
+      <a
+        mat-list-item
+        *ngFor="let link of navLinks"
+        [routerLink]="link.routerLink"
+        class="mb-2 md:mb-0"
       >
-      <mat-list-item routerLink="/map" class="mb-2 md:mb-0"
-        ><i class="fa-solid fa-earth-americas px-3"></i
-        ><span>Radio Map</span></mat-list-item
-      >
-      <mat-list-item routerLink="/favorites" class="mb-2 md:mb-0"
-        ><i class="fa-solid fa-bookmark px-[14px]"></i
-        ><span>Favorites</span></mat-list-item
-      >
+        <i [class]="link.iconClass"></i>
+        <span>{{ link.label }}</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

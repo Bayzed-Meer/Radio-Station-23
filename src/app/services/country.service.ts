@@ -8,7 +8,7 @@ import { Country } from '../models/country.model';
   providedIn: 'root',
 })
 export class CountryService {
-  private apiUrl = 'https://de1.api.radio-browser.info/json/countries'; // Updated to use HTTPS
+  private apiUrl = 'https://de1.api.radio-browser.info/json/countries';
 
   constructor(private http: HttpClient) {}
 

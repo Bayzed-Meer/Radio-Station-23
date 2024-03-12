@@ -37,6 +37,7 @@ export class FiltersComponent implements OnInit {
     this.fetchCountries();
     this.fetchLanguages();
     this.fetchStations();
+    this.applyFilters();
   }
 
   fetchCountries() {
