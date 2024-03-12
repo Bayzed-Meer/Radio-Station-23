@@ -1,6 +1,6 @@
 # Radio Station 23
 
-This project is an Online Radio Player Application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. The application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
+This is an online radio player application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. The application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
 
 ## Key Features
 
