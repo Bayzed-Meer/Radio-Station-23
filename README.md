@@ -1,6 +1,6 @@
 # Radio Station 23
 
-This project is an Angular-based Online Radio Player Application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. Built with Angular, the application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
+This project is an Online Radio Player Application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. The application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
 
 ## Key Features
 
@@ -31,15 +31,17 @@ This project is an Angular-based Online Radio Player Application designed to pro
 
 Browse Page
 
-![browse](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/e230e918-219c-4b30-84d8-7d39facd44f4)
+![Browse](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/cd434b4b-6a46-4965-a636-09d9ae4248b6)
+
 
 Radio Map Page
 
-![map](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/ab027d63-253c-4296-b62b-f896928d4d89)
+![map](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/ec4b0f84-243e-4a9a-95d6-df5ffe3c00b6)
 
 Favorite Page
 
-![favorite](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/3cb8d04e-bbec-47c8-8d55-0066b5c556c9)
+![favorite](https://github.com/Bayzed-Meer/Radio-Station-23/assets/145206930/52e209eb-c4f0-4a3c-831a-4ed0052613ee)
+
 
 
 ## Getting Started
