@@ -14,3 +14,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   transition: all ease-in-out 400ms;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

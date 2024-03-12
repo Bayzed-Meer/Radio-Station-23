@@ -27,6 +27,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { StationsComponent } from './components/stations/stations.component';
+import { TimeFormatPipe } from './time-format.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { StationsComponent } from './components/stations/stations.component';
     FooterComponent,
     PageNotFoundComponent,
     StationsComponent,
+    TimeFormatPipe,
   ],
   imports: [
     BrowserModule,

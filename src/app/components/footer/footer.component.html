@@ -1,5 +1,5 @@
 <div
-  class="px-4 py-2 md:px-8 md:py-3 bg-[#3c4ca9] text-white flex flex-row justify-between"
+  class="flex items-center justify-between bg-primary px-4 py-2 md:px-8 md:py-3"
 >
   <div class="flex items-center justify-center gap-2 md:gap-4">
     <ng-container *ngIf="currentPlayingStationInfo">
@@ -23,10 +23,10 @@
         (click)="openTimerDialog()"
         class="flex items-center justify-center"
       >
-        <mat-icon>timer</mat-icon>
+        <mat-icon class="text-white">timer</mat-icon>
       </button>
       <div *ngIf="isTimerActive" class="text-xs md:text-base">
-        {{ formatTime(timerDuration) }}
+        {{ timerDuration | timeFormat }}
       </div>
     </div>
     <div class="flex items-center justify-center">
@@ -53,7 +53,9 @@
     </div>
     <div class="flex items-center justify-center">
       <button mat-icon-button (click)="toggleMute()">
-        <mat-icon>{{ isMuted ? "volume_off" : "volume_up" }}</mat-icon>
+        <mat-icon class="text-white">{{
+          isMuted ? "volume_off" : "volume_up"
+        }}</mat-icon>
       </button>
     </div>
   </div>

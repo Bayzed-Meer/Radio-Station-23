@@ -1,6 +1,6 @@
 <div
-  [ngStyle]="{ height: isFavoritesRoute ? '85.6vh' : '74vh' }"
-  class="overflow-auto"
+  [ngStyle]="{ height: isFavoritesRoute ? '84.8vh' : '74vh' }"
+  class="overflow-auto no-scrollbar"
   *ngIf="!loading && stations.length > 0; else noFavorite"
 >
   <div
@@ -48,7 +48,7 @@
                   : "favorite_border"
               }}
             </mat-icon>
-            LIKE
+            {{ isStationFavorite(station.stationuuid) ? "UNLIKE" : "LIKE" }}
           </button>
 
           <button
@@ -62,7 +62,9 @@
             <mat-icon *ngIf="station.stationuuid === currentPlayingStation"
               >pause</mat-icon
             >
-            PLAY
+            {{
+              station.stationuuid === currentPlayingStation ? "PAUSE" : "PLAY"
+            }}
           </button>
         </div>
       </mat-card-actions>
@@ -70,7 +72,7 @@
   </div>
 </div>
 <ng-template #noFavorite>
-  <div class="flex flex-col items-center justify-center h-[93vh]">
+  <div class="flex flex-col items-center justify-center h-[92vh]">
     <div class="text-center p-4" *ngIf="loading">
       <p class="text-lg md:text-3xl font-semibold">
         Hold on! We're connecting to stations...
@@ -79,8 +81,11 @@
         <mat-icon class="animate-bounce">queue_music</mat-icon>
       </p>
     </div>
-    <div class="text-center p-4" *ngIf="!loading && stations.length === 0">
-      <p class="text-lg md:text-3xl font-semibold mb-4">No stations found...</p>
+    <div
+      class="text-center p-4"
+      *ngIf="!loading && stations.length === 0 && !isFavoritesRoute"
+    >
+      <p class="text-lg md:text-3xl font-semibold">No stations found...</p>
     </div>
     <div class="text-center p-4" *ngIf="!loading && isFavoritesRoute">
       <p class="text-lg md:text-3xl font-semibold mb-4">

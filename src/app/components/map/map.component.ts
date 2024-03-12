@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as L from 'leaflet';
 import { LatLngTuple } from 'leaflet';
 import { StationsService } from '../../services/stations.service';
@@ -9,7 +9,7 @@ import { ThemeSwitcherService } from '../../services/theme-switcher.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
 
   private map!: L.Map;
@@ -21,15 +21,13 @@ export class MapComponent implements OnInit {
     private themeSwitcherService: ThemeSwitcherService
   ) {}
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.initializeMap();
-      this.fetchStations();
-    }, 100);
-
+  ngAfterViewInit(): void {
+    this.initializeMap();
+    this.fetchStations();
     this.themeSwitcherService.themeChanges.subscribe((isLightMode: boolean) => {
       this.isDarkMode = !isLightMode;
       this.loadMapLayers();
+      this.markStationsOnMap();
     });
   }
 
@@ -39,31 +37,31 @@ export class MapComponent implements OnInit {
 
     this.map = L.map(mapContainer).setView(ukCenter, 6);
 
-    // Load initial map layers
     this.loadMapLayers();
-
-    this.map.invalidateSize();
   }
 
   private loadMapLayers(): void {
-    // Remove existing layers
-    this.map.eachLayer((layer) => {
-      this.map.removeLayer(layer);
-    });
+    if (this.map) {
+      this.map.eachLayer((layer) => {
+        this.map.removeLayer(layer);
+      });
 
-    // Choose different layers based on the theme
-    const tileLayer = this.isDarkMode
-      ? L.tileLayer(
-          'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-          {
-            attribution: '© CARTO',
-          }
-        )
-      : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors',
-        });
+      const tileLayer = this.isDarkMode
+        ? L.tileLayer(
+            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+            {
+              attribution: '© CARTO',
+            }
+          )
+        : L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          });
 
-    tileLayer.addTo(this.map);
+      tileLayer.addTo(this.map);
+    } else {
+      console.error('Map not initialized yet. Skipping layer loading.');
+    }
   }
 
   private fetchStations(): void {
@@ -79,16 +77,17 @@ export class MapComponent implements OnInit {
   }
 
   private markStationsOnMap(): void {
-    // Clear existing markers
-    this.map.eachLayer((layer) => {
-      if (layer instanceof L.Marker) {
-        this.map.removeLayer(layer);
-      }
+    const customIcon = L.icon({
+      iconUrl: '../../../assets/locationIcon.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
     });
 
     this.stations.forEach((station) => {
       if (station.geo_lat && station.geo_long) {
-        const marker = L.marker([station.geo_lat, station.geo_long]);
+        const marker = L.marker([station.geo_lat, station.geo_long], {
+          icon: customIcon,
+        });
         const popupContent = this.createPopupContent(station);
 
         marker.addTo(this.map).bindPopup(popupContent, {

@@ -5,8 +5,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FavoriteStationsService } from '../../services/favorite-stations.service';
 import { AudioService } from 'src/app/services/audio.service';
+import { FavoriteStationsService } from '../../services/favorite-stations.service';
 
 @Component({
   selector: 'app-footer',
@@ -17,7 +17,6 @@ export class FooterComponent {
   @Input() currentPlayingStationInfo: any;
   @Input() playPauseIcon!: string;
 
-  @Output() pauseAudio = new EventEmitter<void>();
   @Output() togglePlayPause = new EventEmitter<void>();
 
   timerDuration: number | null = null;
@@ -57,7 +56,6 @@ export class FooterComponent {
       } else {
         this.favoriteStationsService.addToFavoriteStations(stationId);
       }
-
       this.isFavorite = !this.isFavorite;
     }
   }
@@ -65,20 +63,6 @@ export class FooterComponent {
   toggleMute(): void {
     this.audioService.toggleMute();
     this.isMuted = !this.isMuted;
-  }
-
-  formatTime(seconds: number | null): string {
-    if (seconds === null || isNaN(seconds) || seconds <= 0) {
-      return '00:00';
-    }
-
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-
-    return `${formattedMinutes}:${formattedSeconds}`;
   }
 
   openTimerDialog(): void {
@@ -116,6 +100,6 @@ export class FooterComponent {
     clearInterval(this.timerInterval);
     this.isTimerActive = false;
     this.timerDuration = null;
-    this.pauseAudio.emit();
+    this.audioService.pause();
   }
 }
