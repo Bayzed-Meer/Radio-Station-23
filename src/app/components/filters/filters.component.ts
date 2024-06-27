@@ -1,17 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
 import { Country } from '../../models//country.model';
 import { Language } from '../../models/language.model';
 import { CountryService } from '../../services/country.service';
 import { FilterService } from '../../services/filter.service';
 import { LanguageService } from '../../services/language.service';
 import { StationsService } from '../../services/stations.service';
+import { MatOption } from '@angular/material/core';
+import { NgFor, TitleCasePipe } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss'],
+    selector: 'app-filters',
+    templateUrl: './filters.component.html',
+    styleUrls: ['./filters.component.scss'],
+    standalone: true,
+    imports: [
+        MatFormField,
+        MatLabel,
+        MatInput,
+        FormsModule,
+        MatAutocompleteTrigger,
+        ReactiveFormsModule,
+        MatAutocomplete,
+        NgFor,
+        MatOption,
+        TitleCasePipe,
+    ],
 })
 export class FiltersComponent implements OnInit {
   searchControl = new FormControl();

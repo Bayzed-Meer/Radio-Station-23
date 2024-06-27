@@ -7,11 +7,23 @@ import {
 } from '@angular/core';
 import { AudioService } from 'src/app/services/audio.service';
 import { FavoriteStationsService } from '../../services/favorite-stations.service';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+    selector: 'app-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatIconButton,
+        MatIcon,
+        MatButton,
+        TimeFormatPipe,
+    ],
 })
 export class FooterComponent {
   @Input() currentPlayingStationInfo: any;

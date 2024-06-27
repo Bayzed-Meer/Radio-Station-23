@@ -10,11 +10,35 @@ import { AudioService } from 'src/app/services/audio.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { FavoriteStationsService } from '../../services/favorite-stations.service';
 import { StationsService } from '../../services/stations.service';
+import { FooterComponent } from '../footer/footer.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatCardMdImage, MatCardContent, MatCardActions } from '@angular/material/card';
+import { NgIf, NgStyle, NgFor, DecimalPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-stations',
-  templateUrl: './stations.component.html',
-  styleUrls: ['./stations.component.scss'],
+    selector: 'app-stations',
+    templateUrl: './stations.component.html',
+    styleUrls: ['./stations.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgStyle,
+        NgFor,
+        MatCard,
+        MatCardHeader,
+        MatCardTitleGroup,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardMdImage,
+        MatCardContent,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        FooterComponent,
+        DecimalPipe,
+        TitleCasePipe,
+    ],
 })
 export class StationsComponent implements OnInit, AfterViewInit {
   currentPlayingStation: string | null = null;

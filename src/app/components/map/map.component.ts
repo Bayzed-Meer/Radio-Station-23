@@ -5,9 +5,10 @@ import { StationsService } from '../../services/stations.service';
 import { ThemeSwitcherService } from '../../services/theme-switcher.service';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.scss'],
+    standalone: true,
 })
 export class MapComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;

@@ -1,11 +1,19 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import { ThemeSwitcherService } from '../../services/theme-switcher.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: true,
+    imports: [
+        MatIconButton,
+        MatIcon,
+        MatSlideToggle,
+    ],
 })
 export class NavbarComponent {
   @Output() sidenavToggle = new EventEmitter<void>();
