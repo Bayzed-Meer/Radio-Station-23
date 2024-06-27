@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -29,42 +29,35 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { StationsComponent } from './components/stations/stations.component';
 import { TimeFormatPipe } from './pipes/time-format.pipe';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    DisplayComponent,
-    FavoritesComponent,
-    MapComponent,
-    BrowseComponent,
-    FiltersComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    StationsComponent,
-    TimeFormatPipe,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatTooltipModule,
-    FormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatIconModule,
-    MatCardModule,
-    MatChipsModule,
-    MatListModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatSliderModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavbarComponent,
+        DisplayComponent,
+        FavoritesComponent,
+        MapComponent,
+        BrowseComponent,
+        FiltersComponent,
+        FooterComponent,
+        PageNotFoundComponent,
+        StationsComponent,
+        TimeFormatPipe,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatTooltipModule,
+        FormsModule,
+        MatInputModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatCardModule,
+        MatChipsModule,
+        MatListModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatSliderModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
