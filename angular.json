@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Radio-Station-23-prac": {
+    "Radio-Station-23": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": ["leaflet"],
-            "outputPath": "dist/radio-station-23-prac",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Radio-Station-23-prac:build:production"
+              "buildTarget": "Radio-Station-23:build:production"
             },
             "development": {
-              "browserTarget": "Radio-Station-23-prac:build:development"
+              "buildTarget": "Radio-Station-23:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Radio-Station-23-prac:build"
+            "buildTarget": "Radio-Station-23:build"
           }
         },
         "test": {
