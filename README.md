@@ -1,31 +1,31 @@
 # Radio Station 23
 
-This is an online radio player application designed to provide users with a seamless and enjoyable experience while discovering, streaming, and saving their favorite live radio stations worldwide. The application features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can seamlessly switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization to their interaction with the application.
+Radio Station 23 is an online radio player application designed to provide users with a seamless experience for discovering, streaming, and saving their favorite live radio stations worldwide. It features a user-friendly interface, responsive design, and a range of functionalities that enhance the overall radio listening experience. Users can switch between dark and light modes to customize their visual preferences, adding an extra layer of personalization.
 
 ## Key Features
 
 ### Radio Station Discovery:
-
-- Browse stations based on country, language, and name.
-- Utilize a geolocation-based map for station discovery.
+- Browse stations based on country, language, or name.
+- View the top 100 stations and sort by country or language.
+- Utilize a geolocation-based map for station discovery and start streaming with a single click.
 
 ### Favourite Stations:
-
-- Allow users to save and access their favorite radio stations easily.
+- Allow users to save and access their favorite radio stations easily for quick access.
 
 ### Customizable Player Controls:
-
-- Provide user-friendly controls for play, pause etc.
-- Include additional options like muting, a sleep timer for pausing the player, and displaying station information.
-
+- Provide controls for play, pause, volume adjustment, and more.
+- Additional features include muting, a sleep timer for auto-stop, and station information display.
+  
 ### Responsive Design:
-
-- Ensure the application's responsiveness across different screen sizes and devices.
-- Enable users to enjoy their favorite radio stations seamlessly on desktops, tablets, and mobile phones.
+- Ensure the application is responsive across desktops, tablets, and mobile phones for seamless listening.
 
 ### Local Storage:
+- Store user preferences such as theme (dark/light mode) and favorite radio stations for persistence across sessions.
 
-- Implement local storage to store user preferences, such as theme (dark/light mode), and favorite radio stations for persistence across sessions.
+### Technologies Used:
+- **Frontend**: Angular.
+- **Styling**: Tailwind CSS for responsive design.
+- **Local Storage**: For saving liked stations and preferences to ensure a smooth user experience across sessions.
 
 ## Screenshots
 
@@ -45,22 +45,26 @@ Favorite Page
 
 
 ## Getting Started
-1. Clone this repository.
-2. Install dependencies: `npm install`
-3. Run the application: `ng serve`
+- ```bash
+   git clone https://github.com/Bayzed-Meer/Radio-Station-23.git
+   ```
+- Install dependencies: `npm install`
+- Run the application: `ng serve`
 
 
 ## Contribution Guidelines
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/new-feature`
-3. Commit your changes: `git commit -m 'Add new feature'`
-4. Push to the branch: `git push origin feature/new-feature`
-5. Open a pull request.
+- Fork the repository.
+- Create a feature branch: `git checkout -b feature/new-feature`
+- Commit your changes: `git commit -m 'Add new feature'`
+- Push to the branch: `git push origin feature/new-feature`
+- Open a pull request.
 
 ## Future Scope
-- Background playback support.
-- Offline listening feature.
-- Social media integration for sharing favorite stations.
-- Implementation of infinite scroll for the radio station list.
-- Audio visualizer for the player.
+- Background Playback: Enable playback when the app is in the background.
+- Offline Listening: Provide an option to download and listen to stations offline.
+- User Authentication: Implement user accounts to personalize the experience and sync liked stations across devices.
+- Enhanced Discovery: Introduce personalized recommendations and station ratings.
+- Social Media Integration: Allow users to share their favorite stations with friends on social platforms.
+- Infinite Scroll: Implement infinite scroll for the radio station list.
+- Audio Visualizer: Add an audio visualizer to enhance the player’s experience.
 
